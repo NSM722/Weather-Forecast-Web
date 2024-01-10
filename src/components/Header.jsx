@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-function Header({ city }) {
+function Header() {
   return (
     <>
       <h1>My weather forecast app</h1>

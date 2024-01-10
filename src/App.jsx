@@ -22,14 +22,23 @@ function App() {
   const [cityImage, setCityImage] = useState([]);
   const [foreCast, setForecast] = useState([]);
   const [error, setError] = useState(null);
+  const [loadingImage, setLoadingImage] = useState(false);
+
   const imageSrc = cityImage?.[0]?.image?.web;
 
   // Hooks
   useEffect(() => {
     fetchWeatherData();
-    fetchCityImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (city) {
+      setLoadingImage(true);
+      fetchCityImage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city]);
 
   // Fetching API data
   function fetchWeatherData() {
@@ -59,22 +68,24 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setCityImage(data.photos);
+        setLoadingImage(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoadingImage(false);
+      });
   }
 
   // Event handlers
   function handleChange(event) {
     setCity(event.target.value);
-    fetchCityImage()
+    fetchCityImage();
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     fetchWeatherData();
   }
-
-  console.log('image-->', cityImage);
 
   return (
     <>
@@ -90,12 +101,18 @@ function App() {
         <WeatherCard foreCast={foreCast} weatherData={weatherData} />
       )}
       <div>
-        <img
-          src={imageSrc}
-          alt={`${city}`}
-          className={`img-fluid`}
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
+        {loadingImage ? (
+          <p>Loading the city image</p>
+        ) : imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={`${city}`}
+            className={`img-fluid`}
+            style={{ maxWidth: '100%', height: 'auto' }}
+          /> 
+        ) : (
+          null
+        )}
       </div>
     </>
   );
