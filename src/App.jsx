@@ -95,25 +95,26 @@ function App() {
         handleChange={handleChange}
         query={city}
       />
-      {error && !weatherData && !foreCast ? (
-        <ErrorMessage error={error} />
-      ) : (
-        <WeatherCard foreCast={foreCast} weatherData={weatherData} />
-      )}
       <div>
         {loadingImage ? (
           <p>Loading the city image</p>
         ) : imageSrc ? (
-          <img
+          <div className='d-flex justify-content-between align-items-center'>
+            <p className='display-3 fw-bold text-secondary-emphasis'>{city.toUpperCase()}</p>
+            <img
             src={imageSrc}
             alt={`${city}`}
-            className={`img-fluid`}
-            style={{ maxWidth: '100%', height: 'auto' }}
-          /> 
-        ) : (
-          null
-        )}
+            className={`img-fluid rounded`}
+            style={{ maxWidth: '100%', height: 'auto', width: '60%' }}
+          />
+          </div>
+        ) : null}
       </div>
+      {error && !weatherData && !foreCast ? (
+        <ErrorMessage error={error} />
+      ) : (
+        <WeatherCard foreCast={foreCast} />
+      )}
     </>
   );
 }

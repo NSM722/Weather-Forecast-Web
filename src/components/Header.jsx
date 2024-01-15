@@ -1,15 +1,6 @@
 /* eslint-disable react/prop-types */
 function Header() {
-  return (
-    <>
-      <h1>My weather forecast app</h1>
-      <p>
-      3 DAYS WEATHER FORECAST{' '}
-      </p>
-      
-    </>
-
-  )
+  return <h1 className="display-1 fw-bolder text-secondary text-decoration-underline">WEATHER FORECAST APP</h1>;
 }
 
-export default Header
+export default Header;
