@@ -23,8 +23,8 @@ function WeatherCard({ forecast, weatherData }) {
                 <h5 className='card-title text-primary'>
                   Day:&nbsp;{moment(item.dt * 1000).format('DD MMM YYYY')}{' '}
                 </h5>
-                <p className='card-text'>Temp: {item.temp?.max}° celsius</p>
-                <p className='card-text'>Humidity: {item.humidity}%</p>
+                <p className='card-text text-bg-danger'>Low: {item.temp?.min}° celsius</p>
+                <p className='card-text text-bg-warning'>High: {item.temp?.max}° celsius</p>                <p className='card-text'>Humidity: {item.humidity}%</p>
                 <p className='card-text'>Wind speed: {item.speed}</p>
                 <p className='card-text'>Clouds: {item.clouds} </p>
                 <p className='card-text'>
