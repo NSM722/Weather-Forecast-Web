@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 function SearchInput({ handleSubmit, handleChange, query }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="m-4">
       <input
         type='text'
         placeholder='Enter city'
