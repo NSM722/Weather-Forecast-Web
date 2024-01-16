@@ -25,7 +25,12 @@ function LocalStorageItem({ forecastItem, weatherData }) {
                 <h5 className='card-title text-primary'>
                   Day:&nbsp;{moment(element.dt * 1000).format('DD MMM YYYY')}{' '}
                 </h5>
-                <p className='card-text'>Temp: {element.temp?.max}° celsius</p>
+                <p className='card-text text-bg-danger'>
+                  Low: {element.temp?.min}° celsius
+                </p>
+                <p className='card-text text-bg-warning'>
+                  High: {element.temp?.max}° celsius
+                </p>
                 <p className='card-text'>Humidity: {element.humidity}%</p>
                 <p className='card-text'>Wind speed: {element.speed}</p>
                 <p className='card-text'>Clouds: {element.clouds} </p>
