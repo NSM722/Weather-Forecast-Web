@@ -7,7 +7,7 @@ import SearchInput from './components/SearchInput';
 import Header from './components/Header';
 import WeatherCard from './components/WeatherCard';
 import ErrorMessage from './components/ErrorMessage';
-import LocalStorageItem from './components/LocalStorageItem';
+import LocalStorageItemCard from './components/LocalStorageItemCard';
 // import CityImage from './components/CityImage';
 
 // Styles
@@ -119,7 +119,7 @@ function App() {
         </Online>
       )}
       <Offline>
-        <LocalStorageItem
+        <LocalStorageItemCard
           forecastItem={forecastItem}
           weatherData={weatherData}
         />

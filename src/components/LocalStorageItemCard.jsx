@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
-function LocalStorageItem({ forecastItem, weatherData }) {
+function LocalStorageItemCard({ forecastItem, weatherData }) {
     // maximum temperature
     const maxTemps = forecastItem?.map((day) => day.temp.max)
     let maxTemp = Math.max(...maxTemps).toFixed(2)
@@ -56,4 +56,4 @@ function LocalStorageItem({ forecastItem, weatherData }) {
   );
 }
 
-export default LocalStorageItem;
+export default LocalStorageItemCard;
