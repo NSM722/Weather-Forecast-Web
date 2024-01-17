@@ -7,7 +7,7 @@ function SearchInput({ handleSubmit, handleChange, query }) {
         placeholder='Enter city'
         value={query}
         onChange={handleChange}
-        className="p-2"
+        className="p-2 rounded"
       />
       <button type='submit' className="btn btn-outline-secondary mx-2">Get Weather</button>
     </form>

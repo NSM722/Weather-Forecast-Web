@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
 function LocalStorageItem({ forecastItem, weatherData }) {
+    // maximum temperature
+    const maxTemps = forecastItem?.map((day) => day.temp.max)
+    let maxTemp = Math.max(...maxTemps).toFixed(2)
+  
+    // minimum temperature
+    const minTemps = forecastItem?.map((day) => day.temp.min)
+    let minTemp = Math.min(...minTemps).toFixed(2)
+
   return (
     <>
       <p className='display-6 fw-bold text-success'>
@@ -25,17 +33,17 @@ function LocalStorageItem({ forecastItem, weatherData }) {
                 <h5 className='card-title text-primary'>
                   Day:&nbsp;{moment(element.dt * 1000).format('DD MMM YYYY')}{' '}
                 </h5>
-                <p className='card-text text-bg-danger'>
+                <p className={`card-text ${element.temp?.min.toFixed(2) === minTemp && `text-bg-danger rounded-pill`}`}>
                   Low: {element.temp?.min}° celsius
                 </p>
-                <p className='card-text text-bg-warning'>
+                <p className={`card-text ${element.temp?.max.toFixed(2) === maxTemp && `text-bg-warning rounded-pill`}`}>
                   High: {element.temp?.max}° celsius
                 </p>
                 <p className='card-text'>Humidity: {element.humidity}%</p>
                 <p className='card-text'>Wind speed: {element.speed}</p>
                 <p className='card-text'>Clouds: {element.clouds} </p>
                 <p className='card-text'>
-                  <small className='text-muted text-truncate'>
+                  <small className='text-muted'>
                     Description: {element.weather?.[0]?.description}
                   </small>
                 </p>
