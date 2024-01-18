@@ -2,12 +2,12 @@
 import moment from 'moment';
 function WeatherCard({ forecast, weatherData }) {
   // maximum temperature
-  const maxTemps = forecast?.map((day) => day.temp.max)
-  let maxTemp = Math.max(...maxTemps).toFixed(2)
+  const maxTemps = forecast?.map((day) => day.temp.max);
+  let maxTemp = Math.max(...maxTemps).toFixed(2);
 
   // minimum temperature
-  const minTemps = forecast?.map((day) => day.temp.min)
-  let minTemp = Math.min(...minTemps).toFixed(2)
+  const minTemps = forecast?.map((day) => day.temp.min);
+  let minTemp = Math.min(...minTemps).toFixed(2);
 
   return (
     <>
@@ -33,10 +33,20 @@ function WeatherCard({ forecast, weatherData }) {
                 <h5 className='card-title text-primary'>
                   Day:&nbsp;{moment(item.dt * 1000).format('DD MMM YYYY')}{' '}
                 </h5>
-                <p className={`card-text ${item.temp?.min.toFixed(2) === minTemp && `text-bg-danger rounded-pill`}`}>
+                <p
+                  className={`card-text ${
+                    item.temp?.min.toFixed(2) === minTemp &&
+                    `text-bg-danger rounded-pill`
+                  }`}
+                >
                   Low: {item.temp?.min}° celsius
                 </p>
-                <p className={`card-text ${item.temp?.max.toFixed(2) === maxTemp && `text-bg-warning rounded-pill`}`}>
+                <p
+                  className={`card-text ${
+                    item.temp?.max.toFixed(2) === maxTemp &&
+                    `text-bg-warning rounded-pill`
+                  }`}
+                >
                   High: {item.temp?.max}° celsius
                 </p>
                 <p className='card-text'>Humidity: {item.humidity}%</p>
@@ -51,7 +61,14 @@ function WeatherCard({ forecast, weatherData }) {
             </div>
           </div>
         ))}
+        <button
+          className='btn btn-outline-danger'
+          onClick={() => console.log('delete button clicked')}
+        >
+          Delete
+        </button>
       </div>
+      <hr />
     </>
   );
 }
