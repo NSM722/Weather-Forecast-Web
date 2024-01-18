@@ -98,6 +98,7 @@ function App() {
     event.preventDefault();
     // fetchCityImage();
     fetchWeatherData();
+    setCity('')
   }
 
   return (
