@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
-function WeatherCard({ forecast, weatherData }) {
+function WeatherList({ forecast, weatherData }) {
   // maximum temperature
   const maxTemps = forecast?.map((day) => day.temp.max);
   let maxTemp = Math.max(...maxTemps).toFixed(2);
@@ -73,4 +73,4 @@ function WeatherCard({ forecast, weatherData }) {
   );
 }
 
-export default WeatherCard;
+export default WeatherList;

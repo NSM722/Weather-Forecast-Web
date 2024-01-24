@@ -5,7 +5,7 @@ import { Online, Offline } from 'react-detect-offline';
 // Components
 import SearchInput from './components/SearchInput';
 import Header from './components/Header';
-import WeatherCard from './components/WeatherCard';
+import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
 import LocalStorageItemCard from './components/LocalStorageItemCard';
 // import CityImage from './components/CityImage';
@@ -98,7 +98,7 @@ function App() {
     event.preventDefault();
     // fetchCityImage();
     fetchWeatherData();
-    setCity('')
+    setCity('');
   }
 
   return (
@@ -111,7 +111,7 @@ function App() {
       />
       {!error && forecast.length && (
         <Online>
-          <WeatherCard forecast={forecast} weatherData={weatherData} />
+          <WeatherList forecast={forecast} weatherData={weatherData} />
         </Online>
       )}
       {error && (
