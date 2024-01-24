@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
+import DeleteBtn from './DeleteBtn';
 function WeatherList({ forecast, weatherData }) {
   // maximum temperature
   const maxTemps = forecast?.map((day) => day.temp.max);
@@ -61,12 +62,7 @@ function WeatherList({ forecast, weatherData }) {
             </div>
           </div>
         ))}
-        <button
-          className='btn btn-outline-danger'
-          onClick={() => console.log('delete button clicked')}
-        >
-          Delete
-        </button>
+        <DeleteBtn />
       </div>
       <hr />
     </>
