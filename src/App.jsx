@@ -105,8 +105,6 @@ function App() {
     setCity('');
   }
 
-  console.log('weatherData--', weatherData);
-
   return (
     <>
       <Header />
