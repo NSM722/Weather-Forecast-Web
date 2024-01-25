@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Online, Offline } from 'react-detect-offline';
 
 // Components
-import SearchInput from './components/SearchInput';
+import SearchForm from './components/SearchForm';
 import Header from './components/Header';
 import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
@@ -21,10 +21,9 @@ const storedForecastItem = JSON.parse(localStorage.getItem('forecastItem'));
 
 function App() {
   // States
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState([]);
   const [forecastItem, setForecastItem] = useState(storedForecastItem);
   const [city, setCity] = useState(null || forecastItem?.[0].city?.name);
-  const [forecast, setForecast] = useState([]);
   const [error, setError] = useState(null);
 
   // const [cityImage, setCityImage] = useState([]);
@@ -62,9 +61,14 @@ function App() {
           return res.json();
         })
         .then((data) => {
-          setWeatherData(data);
-          localStorage.setItem('forecastItem', JSON.stringify([data]));
-          setForecast(data?.list);
+          let newData = [];
+          const fetchedPlace = {
+            place: city,
+            ...data,
+          };
+          newData.unshift(fetchedPlace);
+          setWeatherData((prevState) => [...prevState, ...newData]);
+          // localStorage.setItem('forecastItem', JSON.stringify([data]));
           setError(null);
         })
         .catch((err) => {
@@ -101,30 +105,33 @@ function App() {
     setCity('');
   }
 
+  console.log('weatherData--', weatherData);
+
   return (
     <>
       <Header />
-      <SearchInput
+      <SearchForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         query={city}
       />
-      {!error && forecast.length && (
+      {!error && weatherData.length && (
         <Online>
-          <WeatherList forecast={forecast} weatherData={weatherData} />
+          <WeatherList weatherData={weatherData} />
         </Online>
       )}
+
       {error && (
         <Online>
           <ErrorMessage error={error} />
         </Online>
       )}
-      <Offline>
+      {/* <Offline>
         <LocalStorageItemCard
           forecastItem={forecastItem}
           weatherData={weatherData}
         />
-      </Offline>
+      </Offline> */}
     </>
   );
 }
