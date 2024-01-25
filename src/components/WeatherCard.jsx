@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
 
-function WeatherCard({ item }) {
+function WeatherCard({ item, maxTemp, minTemp }) {
   return (
     <div className='card border-2 border border-success'>
       <img
@@ -19,7 +19,7 @@ function WeatherCard({ item }) {
         <h5 className='card-title text-primary'>
           Day:&nbsp;{moment(item.dt * 1000).format('DD MMM YYYY')}{' '}
         </h5>
-        {/* <p
+        <p
           className={`card-text ${
             item.temp?.min.toFixed(2) === minTemp &&
             `text-bg-danger rounded-pill`
@@ -34,7 +34,7 @@ function WeatherCard({ item }) {
           }`}
         >
           High: {item.temp?.max}° celsius
-        </p> */}
+        </p>
         <p className='card-text'>Humidity: {item.humidity}%</p>
         <p className='card-text'>Wind speed: {item.speed}</p>
         <p className='card-text'>Clouds: {item.clouds} </p>
