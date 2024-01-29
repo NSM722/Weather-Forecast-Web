@@ -133,10 +133,7 @@ function App() {
         </Online>
       )}
       <Offline>
-        <LocalStorageList
-          storageData={storedItems}
-          handleDelete={handleDelete}
-        />
+        <LocalStorageList storageData={storedItems} />
       </Offline>
     </>
   );

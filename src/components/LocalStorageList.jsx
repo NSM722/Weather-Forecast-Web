@@ -2,7 +2,7 @@
 import DeleteBtn from './DeleteBtn';
 import WeatherCard from './WeatherCard';
 
-function LocalStorageList({ storageData, handleDelete }) {
+function LocalStorageList({ storageData }) {
   return (
     <>
       {storageData.map((elem) => {
@@ -29,7 +29,7 @@ function LocalStorageList({ storageData, handleDelete }) {
                   />
                 );
               })}
-              <DeleteBtn handleDelete={handleDelete} />
+              <DeleteBtn />
             </div>
             <hr />
           </div>
