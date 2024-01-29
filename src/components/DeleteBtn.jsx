@@ -1,8 +1,9 @@
-function DeleteBtn() {
+/* eslint-disable react/prop-types */
+function DeleteBtn({ handleDelete }) {
   return (
     <button
       className='btn btn-outline-danger btn-sm mt-2'
-      onClick={() => console.log('delete button clicked')}
+      onClick={() => handleDelete()}
     >
       Delete
     </button>

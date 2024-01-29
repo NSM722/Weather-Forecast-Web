@@ -2,7 +2,7 @@
 import DeleteBtn from './DeleteBtn';
 import WeatherCard from './WeatherCard';
 
-function WeatherList({ weatherData }) {
+function WeatherList({ weatherData, handleDelete }) {
   return (
     <>
       {weatherData.map((elem) => {
@@ -29,8 +29,8 @@ function WeatherList({ weatherData }) {
                   />
                 );
               })}
+              <DeleteBtn handleDelete={handleDelete} />
             </div>
-            <DeleteBtn />
             <hr />
           </div>
         );
