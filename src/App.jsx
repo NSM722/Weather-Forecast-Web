@@ -7,7 +7,7 @@ import SearchForm from './components/SearchForm';
 import Header from './components/Header';
 import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
-import LocalStorageItemCard from './components/LocalStorageItemCard';
+import LocalStorageList from './components/LocalStorageList';
 // import CityImage from './components/CityImage';
 
 // Styles
@@ -17,13 +17,13 @@ import './App.css';
 const BASE_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast/daily`;
 const API_KEY = `72791e8fd263ad40dd48dd074e454dbb`;
 const FORECAST_DAYS = 3;
-const storedForecastItem = JSON.parse(localStorage.getItem('forecastItem'));
+const storedForecastData = JSON.parse(localStorage.getItem('storageItems'));
 
 function App() {
   // States
   const [weatherData, setWeatherData] = useState([]);
-  const [forecastItem, setForecastItem] = useState(storedForecastItem);
-  const [city, setCity] = useState(null || forecastItem?.[0].city?.name);
+  const [storedItems, setStoredItems] = useState(storedForecastData);
+  const [city, setCity] = useState(null || storedItems?.[0].place);
   const [error, setError] = useState(null);
 
   // const [cityImage, setCityImage] = useState([]);
@@ -68,7 +68,10 @@ function App() {
           };
           newData.unshift(fetchedPlace);
           setWeatherData((prevState) => [...prevState, ...newData]);
-          // localStorage.setItem('forecastItem', JSON.stringify([data]));
+          localStorage.setItem(
+            'storageItems',
+            JSON.stringify([...weatherData, ...newData])
+          );
           setError(null);
         })
         .catch((err) => {
@@ -98,10 +101,15 @@ function App() {
     setCity(event.target.value);
   }
 
+  function handleDelete() {
+    console.log('delete button clicked');
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     // fetchCityImage();
     fetchWeatherData();
+    // clear the search input
     setCity('');
   }
 
@@ -115,7 +123,7 @@ function App() {
       />
       {!error && weatherData.length && (
         <Online>
-          <WeatherList weatherData={weatherData} />
+          <WeatherList weatherData={weatherData} handleDelete={handleDelete} />
         </Online>
       )}
 
@@ -124,12 +132,12 @@ function App() {
           <ErrorMessage error={error} />
         </Online>
       )}
-      {/* <Offline>
-        <LocalStorageItemCard
-          forecastItem={forecastItem}
-          weatherData={weatherData}
+      <Offline>
+        <LocalStorageList
+          storageData={storedItems}
+          handleDelete={handleDelete}
         />
-      </Offline> */}
+      </Offline>
     </>
   );
 }
