@@ -3,28 +3,29 @@ import { useState, useEffect } from 'react';
 import { Online, Offline } from 'react-detect-offline';
 
 // Components
-import SearchInput from './components/SearchInput';
+import SearchForm from './components/SearchForm';
 import Header from './components/Header';
-import WeatherCard from './components/WeatherCard';
+import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
-import LocalStorageItemCard from './components/LocalStorageItemCard';
+import LocalStorageList from './components/LocalStorageList';
 // import CityImage from './components/CityImage';
+import { API_KEY } from './utils';
 
 // Styles
 import './App.css';
 
 // constants
 const BASE_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast/daily`;
-const API_KEY = `72791e8fd263ad40dd48dd074e454dbb`;
 const FORECAST_DAYS = 3;
-const storedForecastItem = JSON.parse(localStorage.getItem('forecastItem'));
+const storedForecastData = JSON.parse(localStorage.getItem('storageItems'));
 
 function App() {
   // States
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastItem, setForecastItem] = useState(storedForecastItem);
-  const [city, setCity] = useState(null || forecastItem?.[0].city?.name);
-  const [forecast, setForecast] = useState([]);
+  const [weatherData, setWeatherData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [storedItems, setStoredItems] = useState(storedForecastData);
+  // const [city, setCity] = useState(null || storedItems?.[0].place);
+  const [city, setCity] = useState('');
   const [error, setError] = useState(null);
 
   // const [cityImage, setCityImage] = useState([]);
@@ -62,9 +63,17 @@ function App() {
           return res.json();
         })
         .then((data) => {
-          setWeatherData(data);
-          localStorage.setItem('forecastItem', JSON.stringify([data]));
-          setForecast(data?.list);
+          let newData = [];
+          const fetchedPlace = {
+            place: city,
+            ...data,
+          };
+          newData.unshift(fetchedPlace);
+          setWeatherData((prevState) => [...prevState, ...newData]);
+          localStorage.setItem(
+            'storageItems',
+            JSON.stringify([...weatherData, ...newData])
+          );
           setError(null);
         })
         .catch((err) => {
@@ -94,35 +103,46 @@ function App() {
     setCity(event.target.value);
   }
 
+  function handleDelete(id) {
+    setWeatherData(weatherData.filter((elem) => elem.place !== id));
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     // fetchCityImage();
     fetchWeatherData();
+    // clear the search input
+    setCity('');
   }
 
   return (
     <>
       <Header />
-      <SearchInput
+      <SearchForm
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         query={city}
       />
-      {!error && forecast.length && (
+      {!error && weatherData.length && (
         <Online>
-          <WeatherCard forecast={forecast} weatherData={weatherData} />
+          <WeatherList weatherData={weatherData} handleDelete={handleDelete} />
         </Online>
       )}
+
       {error && (
         <Online>
           <ErrorMessage error={error} />
         </Online>
       )}
+      {!weatherData.length && !error && (
+        <Online>
+          <p className='text-secondary fw-bolder'>
+            Enter a city name to get weather details
+          </p>
+        </Online>
+      )}
       <Offline>
-        <LocalStorageItemCard
-          forecastItem={forecastItem}
-          weatherData={weatherData}
-        />
+        <LocalStorageList storageData={storedItems} />
       </Offline>
     </>
   );
