@@ -9,13 +9,13 @@ import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
 import LocalStorageList from './components/LocalStorageList';
 // import CityImage from './components/CityImage';
+import { API_KEY } from './utils';
 
 // Styles
 import './App.css';
 
 // constants
 const BASE_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast/daily`;
-const API_KEY = `72791e8fd263ad40dd48dd074e454dbb`;
 const FORECAST_DAYS = 3;
 const storedForecastData = JSON.parse(localStorage.getItem('storageItems'));
 
@@ -131,6 +131,13 @@ function App() {
       {error && (
         <Online>
           <ErrorMessage error={error} />
+        </Online>
+      )}
+      {!weatherData.length && !error && (
+        <Online>
+          <p className='text-secondary fw-bolder'>
+            Enter a city name to get weather details
+          </p>
         </Online>
       )}
       <Offline>
