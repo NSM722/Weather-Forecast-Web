@@ -23,7 +23,8 @@ function App() {
   // States
   const [weatherData, setWeatherData] = useState([]);
   const [storedItems, setStoredItems] = useState(storedForecastData);
-  const [city, setCity] = useState(null || storedItems?.[0].place);
+  // const [city, setCity] = useState(null || storedItems?.[0].place);
+  const [city, setCity] = useState('');
   const [error, setError] = useState(null);
 
   // const [cityImage, setCityImage] = useState([]);
@@ -101,8 +102,8 @@ function App() {
     setCity(event.target.value);
   }
 
-  function handleDelete() {
-    console.log('delete button clicked');
+  function handleDelete(id) {
+    setWeatherData(weatherData.filter((elem) => elem.place !== id));
   }
 
   function handleSubmit(event) {

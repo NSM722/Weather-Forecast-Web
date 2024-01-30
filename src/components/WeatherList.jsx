@@ -29,7 +29,7 @@ function WeatherList({ weatherData, handleDelete }) {
                   />
                 );
               })}
-              <DeleteBtn handleDelete={handleDelete} />
+              <DeleteBtn handleDelete={() => handleDelete(elem.place)} />
             </div>
             <hr />
           </div>
