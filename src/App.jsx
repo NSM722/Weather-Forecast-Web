@@ -22,6 +22,7 @@ const storedForecastData = JSON.parse(localStorage.getItem('storageItems'));
 function App() {
   // States
   const [weatherData, setWeatherData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [storedItems, setStoredItems] = useState(storedForecastData);
   // const [city, setCity] = useState(null || storedItems?.[0].place);
   const [city, setCity] = useState('');
