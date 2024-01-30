@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
+import { IWeatherData } from '../interfaces/interfaces';
 import DeleteBtn from './DeleteBtn';
 import WeatherCard from './WeatherCard';
 
-function LocalStorageList({ storageData }) {
+interface Props {
+  weatherData: IWeatherData[];
+  handleDelete: (id: string) => void;
+}
+
+function WeatherList({ weatherData, handleDelete }: Props) {
   return (
     <>
-      {storageData.map((elem) => {
+      {weatherData.map((elem) => {
         const maxTemps = elem.list.map((day) => day.temp.max);
         let maxTemp = Math.max(...maxTemps).toFixed(2);
         const minTemps = elem.list?.map((day) => day.temp.min);
@@ -29,7 +35,7 @@ function LocalStorageList({ storageData }) {
                   />
                 );
               })}
-              <DeleteBtn />
+              <DeleteBtn handleDelete={() => handleDelete(elem.place)} />
             </div>
             <hr />
           </div>
@@ -39,4 +45,4 @@ function LocalStorageList({ storageData }) {
   );
 }
 
-export default LocalStorageList;
+export default WeatherList;

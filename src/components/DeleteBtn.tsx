@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types */
-function DeleteBtn({ handleDelete }) {
+
+interface Props {
+  handleDelete: () => void;
+}
+
+function DeleteBtn({ handleDelete }: Props) {
   return (
     <button
       className='btn btn-outline-danger btn-sm mt-2'
