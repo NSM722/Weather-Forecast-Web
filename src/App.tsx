@@ -1,5 +1,5 @@
 // React
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { Online, Offline } from 'react-detect-offline';
 
 // Components
@@ -10,23 +10,27 @@ import ErrorMessage from './components/ErrorMessage';
 import LocalStorageList from './components/LocalStorageList';
 // import CityImage from './components/CityImage';
 
+// Types
+
 // Styles
 import './App.css';
+import { IWeatherData } from './interfaces/interfaces';
 
 // constants
 const BASE_WEATHER_URL = `https://api.openweathermap.org/data/2.5/forecast/daily`;
 const API_KEY = `72791e8fd263ad40dd48dd074e454dbb`;
 const FORECAST_DAYS = 3;
-const storedForecastData = JSON.parse(localStorage.getItem('storageItems'));
+const storedForecastData = JSON.parse(
+  localStorage.getItem('storageItems') as string
+);
 
 function App() {
   // States
-  const [weatherData, setWeatherData] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [storedItems, setStoredItems] = useState(storedForecastData);
+  const [weatherData, setWeatherData] = useState<IWeatherData[]>([]);
+  const [storedItems] = useState<IWeatherData[]>(storedForecastData);
   // const [city, setCity] = useState(null || storedItems?.[0].place);
-  const [city, setCity] = useState('');
-  const [error, setError] = useState(null);
+  const [city, setCity] = useState<string>('');
+  const [error, setError] = useState<null | string>(null);
 
   // const [cityImage, setCityImage] = useState([]);
   // const [isLoadingImage, setIsLoadingImage] = useState(false);
@@ -63,7 +67,7 @@ function App() {
           return res.json();
         })
         .then((data) => {
-          let newData = [];
+          let newData: any[] = [];
           const fetchedPlace = {
             place: city,
             ...data,
@@ -99,15 +103,15 @@ function App() {
   // }
 
   // Event handlers
-  function handleChange(event) {
+  function handleChange(event: { target: { value: SetStateAction<string> } }) {
     setCity(event.target.value);
   }
 
-  function handleDelete(id) {
+  function handleDelete(id: string) {
     setWeatherData(weatherData.filter((elem) => elem.place !== id));
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
     // fetchCityImage();
     fetchWeatherData();

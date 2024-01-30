@@ -1,7 +1,14 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment';
+import { IWeatherDataItem } from '../interfaces/interfaces';
 
-function WeatherCard({ item, maxTemp, minTemp }) {
+interface Props {
+  item: IWeatherDataItem;
+  maxTemp: string;
+  minTemp: string;
+}
+
+function WeatherCard({ item, maxTemp, minTemp }: Props) {
   return (
     <div className='card border-2 border border-success'>
       <img

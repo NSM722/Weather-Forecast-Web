@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-function SearchForm({ handleSubmit, handleChange, query }) {
+
+interface Props {
+  handleSubmit: (event: { preventDefault: () => void }) => void;
+  handleChange: (event: { target: { value: string } }) => void;
+  query: string;
+}
+function SearchForm({ handleSubmit, handleChange, query }: Props) {
   return (
     <form onSubmit={handleSubmit} className='m-4'>
       <input
