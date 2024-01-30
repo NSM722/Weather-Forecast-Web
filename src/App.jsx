@@ -9,7 +9,7 @@ import WeatherList from './components/WeatherList';
 import ErrorMessage from './components/ErrorMessage';
 import LocalStorageList from './components/LocalStorageList';
 // import CityImage from './components/CityImage';
-import { API_KEY } from './utils';
+import { API_KEY } from './utils.js';
 
 // Styles
 import './App.css';
