@@ -1,6 +1,8 @@
 // React
 import { useState, useEffect, SetStateAction } from 'react';
 import { Online, Offline } from 'react-detect-offline';
+import { Slide, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import SearchForm from './components/SearchForm';
@@ -109,6 +111,13 @@ function App() {
 
   function handleDelete(id: string) {
     setWeatherData(weatherData.filter((elem) => elem.place !== id));
+    toast.success('Weather details deleted!', {
+      position: 'bottom-right',
+      theme: 'colored',
+      hideProgressBar: true,
+      autoClose: 700,
+      transition: Slide,
+    });
   }
 
   function handleSubmit(event: { preventDefault: () => void }) {
