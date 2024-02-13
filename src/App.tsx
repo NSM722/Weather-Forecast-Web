@@ -74,11 +74,11 @@ function App() {
             place: city,
             ...data,
           };
-          newData.unshift(fetchedPlace);
-          setWeatherData((prevState) => [...prevState, ...newData]);
+          newData.push(fetchedPlace);
+          setWeatherData((prevState) => [...newData, ...prevState]);
           localStorage.setItem(
             'storageItems',
-            JSON.stringify([...weatherData, ...newData])
+            JSON.stringify([...newData, ...weatherData])
           );
           setError(null);
         })
