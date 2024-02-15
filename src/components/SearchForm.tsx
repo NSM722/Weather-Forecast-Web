@@ -4,11 +4,13 @@ interface Props {
   handleSubmit: (event: { preventDefault: () => void }) => void;
   handleChange: (event: { target: { value: string } }) => void;
   query: string;
+  inputRef: any;
 }
-function SearchForm({ handleSubmit, handleChange, query }: Props) {
+function SearchForm({ handleSubmit, handleChange, query, inputRef }: Props) {
   return (
     <form onSubmit={handleSubmit} className='m-4'>
       <input
+        ref={inputRef}
         type='text'
         placeholder='Enter city'
         value={query}
