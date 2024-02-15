@@ -1,5 +1,5 @@
 // React
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, useRef, SetStateAction } from 'react';
 import { Online, Offline } from 'react-detect-offline';
 import { Slide, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -39,6 +39,8 @@ function App() {
   // const imageSrc = cityImage?.[0]?.image?.web;
 
   // Hooks
+  const inputRef = useRef<HTMLDivElement>(null!);
+
   useEffect(() => {
     fetchWeatherData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,12 +128,15 @@ function App() {
     fetchWeatherData();
     // clear the search input
     setCity('');
+    // focus on the input
+    inputRef.current.focus();
   }
 
   return (
     <>
       <Header />
       <SearchForm
+        inputRef={inputRef}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         query={city}
