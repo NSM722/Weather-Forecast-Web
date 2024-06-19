@@ -1,6 +1,6 @@
 # Weather forecast web application
 
-This web application for displays current and next 2 days weather information for an entered city
+This web application displays current and next 2 days weather information for an entered city
 
 The application retrieves and display weather data from [OpenWeather API](https://openweathermap.org/api 'read docs')
 
